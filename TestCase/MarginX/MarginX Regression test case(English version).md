@@ -819,7 +819,181 @@
 
 ### Bridge
 
-- Redirect to [https://pundiscan.io/fxbridge](https://pundiscan.io/fxbridge)
+- Source Token
+
+  - Positive Test Scenarios
+
+    - Click on the chain dropdown menu
+
+      - Displays the list of supported chains.
+
+    - Select any chain from the dropdown list
+
+      - Switches to the selected chain.
+
+    - Click on the token
+
+      - Displays the list of supported tokens for the selected chain along with their corresponding balances.
+
+    - Click on any token in the list
+
+      - Successfully changes the source token and displays its balance.
+
+    - Enter a token amount less than the available balance
+
+      - The transaction can proceed.
+
+    - Select "Max" for the token amount
+
+      - The transaction amount will be set to the maximum available balance.
+
+  - Negative Test Scenarios
+
+    - If no chain is selected
+
+      - A required field alert pops up.
+
+    - If the selected chain is not the one currently connected to the wallet
+
+      - A "Switch to correct chain" alert pops up.
+
+    - If a chain is selected but no token is chosen
+
+      - A required field alert pops up.
+
+    - If no value is entered for the token amount
+
+      - A required value alert pops up.
+
+    - If the token amount entered is greater than the available balance
+
+      - An insufficient balance warning is displayed.
+
+    - If a token not owned by the wallet is selected
+
+      - An insufficient balance warning is displayed.
+
+  - Boundary Test Scenarios
+
+    - Enter the token amount with maximum precision
+
+      - Values exceeding the token precision will be rounded.
+
+    - Select "Max" for the token amount, and if the token is the gas token for that chain
+
+      - The transaction amount will equal the available balance minus the minimum required gas fee.
+
+- Destination Token
+
+  - Positive Test Scenarios
+
+    - Click on the chain dropdown menu
+
+      - Displays the list of supported chains.
+
+    - Select any chain from the dropdown list
+
+      - Switches to the selected chain.
+
+    - Click on the token
+
+      - Displays the list of supported tokens for the selected chain along with their corresponding balances.
+
+    - Click on any token in the list
+
+      - Successfully changes the destination token and displays its balance.
+
+  - Negative Test Scenarios
+
+    - If no chain is selected
+
+      - A required field alert pops up.
+
+    - If a chain is selected but no token is chosen
+
+      - A required field alert pops up.
+
+    - If the source token is not yet supported on the destination token list
+
+      - Bridge cannot proceed, and selecting a non-source token shows a "Coming soon" alert.
+
+- Bridge Functionality
+
+  - Positive Test Scenarios
+
+    - Enter any amount within the source token's available balance
+
+      - The destination token automatically updates with the same value and becomes uneditable.
+
+    - Click the "V" (swap button)
+
+      - The source token and destination token chains are swapped.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT, then change the source token's chain to B-chain
+
+      - The destination token automatically changes to A-chain, effectively swapping chains.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge, but the A-chain USDT has not yet been approved for contract
+
+      - Redirects to the wallet's protocol approval page.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge
+
+      - The "Confirm Bridge" window pops up, displaying transaction details and a "Bridge" button. If bridging from Zeta to another chain, it also shows the required gas fee token and amount.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful
+
+      - 1. A-chain gas token is deducted.
+        2. The A-chain USDT balance is reduced by the transaction amount.
+        3. The B-chain USDT balance increases by the transaction amount.
+        4. The interface shows: 1. "View on A-chain Explorer" 2. "View on B-chain Explorer" 3. "Add token to wallet" button 4. Close window button.
+        5. Transaction history shows the record along with the chain's transaction hash.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "View on A-chain Explorer"
+
+      - Redirects to the A-chain explorer and displays transaction details.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "View on B-chain Explorer"
+
+      - Redirects to the B-chain explorer and displays transaction details.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "Add to Wallet"
+
+      - The destination token is added to the bound wallet.
+
+  - Negative Test Scenarios
+
+    - If the source and destination tokens are different
+
+      - The Bridge cannot proceed, and selecting a non-source token shows a "Coming soon" alert.
+
+    - If the transaction is rejected by the wallet during Bridge
+
+      - Displays transaction failure alert, and assets remain unchanged.
+
+    - If the source chain's gas token balance is insufficient to pay the gas fee during Bridge
+
+      - Displays transaction failure alert, and assets remain unchanged.
+
+    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge, but the A-chain USDT contract approval is rejected
+
+      - Displays transaction failure alert, and assets remain unchanged.
+
+    - If miners are still confirming the block during Bridge
+
+      - The transaction is marked as "Pending," and the transaction history shows the record along with the chain's transaction hash.
+
+    - When bridging from Zeta chain to an external chain, if the transaction amount plus the gas fee exceeds the balance
+
+      - Transaction fails, and an insufficient balance warning is displayed.
+
+  - Equivalence Partitioning Scenarios
+
+    - Test different chains and tokens for equivalence partitioning
+
+      - 1. Chain: 1. External chain → Zeta chain 2. Zeta chain → External chain
+        2. Token: 1. Native 2. ERC20
+
 
 ### Setting
 
