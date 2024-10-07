@@ -28,6 +28,16 @@
 
 - f(x)core
 - ZetaChain
+- BSC
+- Polygon
+- Ethereum
+
+### Wallet
+
+- MetaMask
+- TrustWallet
+- f(x)Wallet
+- OKX Wallet
 
 ### Test Tokens
 
@@ -35,6 +45,9 @@
 - Zeta
 - USDC
 - USDT
+- BNB
+- POL
+- ETH
 
 ## Test Scenarios
 
