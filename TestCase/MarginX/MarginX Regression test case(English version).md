@@ -834,185 +834,199 @@
 
 - Source Token
 
-  - Positive Test Scenarios
+	- Positive Test Cases
 
-    - Click on the chain dropdown menu
+		- Click on the chain dropdown menu
 
-      - Displays the list of supported chains.
+			- Supported chain options are displayed
 
-    - Select any chain from the dropdown list
+		- Select any chain from the dropdown
 
-      - Switches to the selected chain.
+			- Switches to the selected chain
 
-    - Click on the token
+		- Click on the token
 
-      - Displays the list of supported tokens for the selected chain along with their corresponding balances.
+			- Shows the list of supported tokens on the selected chain along with corresponding balances
 
-    - Click on any token in the list
+		- Select any token from the list
 
-      - Successfully changes the source token and displays its balance.
+			- Successfully changes the source token and displays the balance of that token
 
-    - Enter a token amount less than the available balance
+		- Enter a token amount less than the available balance
 
-      - The transaction can proceed.
+			- Allows the transaction
 
-    - Select "Max" for the token amount
+		- Select Max for token amount
 
-      - The transaction amount will be set to the maximum available balance.
+			- Transaction amount is set to the maximum available balance
 
-  - Negative Test Scenarios
+	- Negative Test Cases
 
-    - If no chain is selected
+		- If no chain is selected
 
-      - A required field alert pops up.
+			- A required field warning is displayed
 
-    - If the selected chain is not the one currently connected to the wallet
+		- If the selected chain does not match the currently connected wallet chain
 
-      - A "Switch to correct chain" alert pops up.
+			- Displays a "Switch to correct chain" warning
 
-    - If a chain is selected but no token is chosen
+		- If a chain is selected but no token is chosen
 
-      - A required field alert pops up.
+			- A required field warning is displayed
 
-    - If no value is entered for the token amount
+		- If no value is entered for token amount
 
-      - A required value alert pops up.
+			- A required amount warning is displayed
 
-    - If the token amount entered is greater than the available balance
+		- If token amount entered exceeds available balance
 
-      - An insufficient balance warning is displayed.
+			- Displays an insufficient balance warning
 
-    - If a token not owned by the wallet is selected
+		- If a token is selected that is not owned in the wallet
 
-      - An insufficient balance warning is displayed.
+			- Displays an insufficient balance warning
 
-  - Boundary Test Scenarios
+	- Boundary Test Cases
 
-    - Enter the token amount with maximum precision
+		- Enter token amount with maximum precision
 
-      - Values exceeding the token precision will be rounded.
+			- Rounds to appropriate precision if it exceeds token’s precision limit
 
-    - Select "Max" for the token amount, and if the token is the gas token for that chain
+		- Select Max for token amount, and the token is used as gas on the chain
 
-      - The transaction amount will equal the available balance minus the minimum required gas fee.
+			- Transaction amount will equal balance minus minimum gas fee
 
 - Destination Token
 
-  - Positive Test Scenarios
+	- Positive Test Cases
 
-    - Click on the chain dropdown menu
+		- Click on the chain dropdown menu
 
-      - Displays the list of supported chains.
+			- Supported chain options are displayed
 
-    - Select any chain from the dropdown list
+		- Select any chain from the dropdown
 
-      - Switches to the selected chain.
+			- Switches to the selected chain
 
-    - Click on the token
+		- Click on the token
 
-      - Displays the list of supported tokens for the selected chain along with their corresponding balances.
+			- Shows the list of supported tokens on the selected chain along with corresponding balances
 
-    - Click on any token in the list
+		- Select any token from the list
 
-      - Successfully changes the destination token and displays its balance.
+			- Successfully changes the destination token and displays the balance of that token
 
-  - Negative Test Scenarios
+	- Negative Test Cases
 
-    - If no chain is selected
+		- If no chain is selected
 
-      - A required field alert pops up.
+			- A required field warning is displayed
 
-    - If a chain is selected but no token is chosen
+		- If a chain is selected but no token is chosen
 
-      - A required field alert pops up.
+			- A required field warning is displayed
 
-    - If the source token is not yet supported on the destination token list
+		- If the source token is not supported in the destination token list
 
-      - Bridge cannot proceed, and selecting a non-source token shows a "Coming soon" alert.
+			- Bridge cannot proceed, displaying "Insufficient liquidity for this trade" warning
 
-- Bridge Functionality
+- Bridge Function
 
-  - Positive Test Scenarios
+	- Positive Test Cases
 
-    - Enter any amount within the source token's available balance
+		- Enter any value within available asset amount for source token
 
-      - The destination token automatically updates with the same value and becomes uneditable.
+			- Destination token automatically updates with corresponding value and is not editable
 
-    - Click the "V" (swap button)
+		- Click the "V" (switch button)
 
-      - The source token and destination token chains are swapped.
+			- Swaps the source and destination tokens along with respective chains
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT, then change the source token's chain to B-chain
+		- If the source token is USDT on Chain A and destination token is USDT on Chain B, change source chain to Chain B
 
-      - The destination token automatically changes to A-chain, effectively swapping chains.
+			- Destination chain automatically updates to Chain A, switching the chains
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge, but the A-chain USDT has not yet been approved for contract
+		- If the source token is USDT on Chain A and destination token is USDT on Chain B, and Bridge is initiated without approving the contract on Chain A
 
-      - Redirects to the wallet's protocol approval page.
+			- Redirects to wallet approval page
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge
+		- If the source token is USDT on Chain A and destination token is USDT on Chain B and Bridge is initiated
 
-      - The "Confirm Bridge" window pops up, displaying transaction details and a "Bridge" button. If bridging from Zeta to another chain, it also shows the required gas fee token and amount.
+			- Displays Confirm bridge window, showing transaction details and Bridge button. If bridging from Zeta chain to another chain, displays gas fee token and amount.
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful
+		- After successful bridge from USDT on Chain A to USDT on Chain B
 
-      - 1. A-chain gas token is deducted.
-        2. The A-chain USDT balance is reduced by the transaction amount.
-        3. The B-chain USDT balance increases by the transaction amount.
-        4. The interface shows: 1. "View on A-chain Explorer" 2. "View on B-chain Explorer" 3. "Add token to wallet" button 4. Close window button.
-        5. Transaction history shows the record along with the chain's transaction hash.
+			- 1. Deducts gas token on Chain A
+            - 2. Deducts bridged amount of USDT on Chain A
+            - 3. Adds bridged amount to USDT on Chain B
+            - 4. Screen shows 1. View on Chain A Explorer 2. View on Chain B Explorer 3. Add token to wallet button 4. Close button
+            - 5. Transaction history shows transaction record with chain's tx hash
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "View on A-chain Explorer"
+		- After successful bridge from USDT on Chain A to USDT on Chain B, click View on Chain A Explorer
 
-      - Redirects to the A-chain explorer and displays transaction details.
+			- Redirects to Chain A Explorer displaying transaction details
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "View on B-chain Explorer"
+		- After successful bridge from USDT on Chain A to USDT on Chain B, click View on Chain B Explorer
 
-      - Redirects to the B-chain explorer and displays transaction details.
+			- Redirects to Chain B Explorer displaying transaction details
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and the Bridge is successful, click "Add to Wallet"
+		- After successful bridge from USDT on Chain A to USDT on Chain B, click Add to Wallet
 
-      - The destination token is added to the bound wallet.
+			- Adds the destination token to the connected wallet
 
-  - Negative Test Scenarios
+	- Negative Test Cases
 
-    - If the source and destination tokens are different
+		- If there is insufficient liquidity for source or destination token
 
-      - The Bridge cannot proceed, and selecting a non-source token shows a "Coming soon" alert.
+			- Bridge cannot proceed, displaying "Insufficient liquidity for this trade" warning
 
-    - If the transaction is rejected by the wallet during Bridge
+		- If the wallet rejects the transaction during Bridge
 
-      - Displays transaction failure alert, and assets remain unchanged.
+			- Shows transaction failure warning, and assets remain unchanged
 
-    - If the source chain's gas token balance is insufficient to pay the gas fee during Bridge
+		- If gas token is insufficient to cover the gas fee on the source chain
 
-      - Displays transaction failure alert, and assets remain unchanged.
+			- Shows transaction failure warning, and assets remain unchanged
 
-    - If the source token is A-chain USDT and the destination token is B-chain USDT and proceed with Bridge, but the A-chain USDT contract approval is rejected
+		- If the source token on Chain A (e.g., USDT) requires approval but is denied
 
-      - Displays transaction failure alert, and assets remain unchanged.
+			- Shows transaction failure warning, and assets remain unchanged
 
-    - If miners are still confirming the block during Bridge
+		- If miners are still confirming the block during Bridge
 
-      - The transaction is marked as "Pending," and the transaction history shows the record along with the chain's transaction hash.
+			- Transaction appears as Pending, with transaction history showing transaction record and tx hash
 
-    - When bridging from Zeta chain to an external chain, if the transaction amount plus the gas fee exceeds the balance
+		- If bridging from Zeta chain to an external chain and transaction amount plus gas fee exceeds balance
 
-      - Transaction fails, and an insufficient balance warning is displayed.
+			- Transaction fails, displaying insufficient balance warning
 
-  - Equivalence Partitioning Scenarios
+	- Equivalence Partitioning Test Cases
 
-    - Test different chains and tokens for equivalence partitioning
+		- Perform equivalence partitioning tests for different chains and tokens
 
-      - 1. Chain: 1. External chain → Zeta chain 2. Zeta chain → External chain
-        2. Token: 1. Native 2. ERC20
+			- Chain: 1. External chain >> Zeta chain 2. Zeta chain >> External chain
+            - Token: 1. Native 2. ERC20
 
+	- Boundary Test Cases
+
+		- Perform cross-chain tests for different tokens and chains, e.g., ETH.USDT <-> ZETA.ZETA
+
+			- Successfully converts token and accurately calculates exchange rate and gas fee
+
+		- Test different tokens with different precision during cross-chain transfers, e.g., Token A supports up to 18 decimals, Token B supports up to 6 decimals
+
+			- If Token A exceeds 6 decimal places, conversion uses the appropriate exchange rate and rounds to the max supported decimals of Token B
 
 ### Setting
 
 - Connect Wallet
 
+	- Enables Swap, Bridge, etc., and transaction history and balance are visible
+
 - Disconnect Wallet
+
+	- Disables Swap, Bridge, etc., and transaction history and balance are not visible
+
 
 - Copy Wallet Address
 
